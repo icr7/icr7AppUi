@@ -5,7 +5,10 @@ export const AddToDoItem = () => {
     <div>
       <form className="row row-cols-lg-auto g-3 align-items-center">
         <div className="col-12">
-          <label className="visually-hidden" for="inlineFormInputGroupUsername">
+          <label
+            className="visually-hidden"
+            htmlFor="inlineFormInputGroupUsername"
+          >
             Username
           </label>
           <div className="input-group">
@@ -20,19 +23,38 @@ export const AddToDoItem = () => {
         </div>
 
         <div className="col-12">
-          <label className="visually-hidden" for="inlineFormSelectPref">
+          <label className="visually-hidden" htmlFor="inlineFormSelectPref">
             Preference
           </label>
           <select className="form-select" id="inlineFormSelectPref">
-            <option selected>Priority</option>
+            <option value="" disabled selected>
+              Select Priority
+            </option>
             <option value="1">High</option>
             <option value="2">Medium</option>
             <option value="3">Low</option>
           </select>
         </div>
+        <div className="col-12">
+          <label
+            className="visually-hidden"
+            htmlFor="inlineFormInputGroupUsername"
+          >
+            Discription
+          </label>
+          <div className="input-group">
+            <div className="input-group-text">Discreption</div>
+            <input
+              type="text"
+              className="form-control"
+              id="inlineFormInputGroupUsername"
+              placeholder="description"
+            />
+          </div>
+        </div>
 
         <div className="col-12">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-success">
             Add
           </button>
         </div>
