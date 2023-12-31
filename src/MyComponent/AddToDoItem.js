@@ -1,9 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 
-export const AddToDoItem = () => {
+export const AddToDoItem = ({ addTodo }) => {
+  const [task, setTask] = useState("");
+  const [priority, setPriority] = useState("");
+  const [description, setDescription] = useState("");
+
+  const handleTaskChange = (e) => {
+    setTask(e.target.value);
+  };
+
+  const handlePriorityChange = (e) => {
+    setPriority(e.target.value);
+  };
+
+  const handleDescriptionChange = (e) => {
+    setDescription(e.target.value);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    // Validate input fields
+    if (!task || !priority || !description) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    // Create a new todo object
+    const newTodo = {
+      task: task,
+      priority: parseInt(priority),
+      description: description,
+    };
+
+    // Update the todo list
+    addTodo(newTodo);
+
+    // Clear the input fields
+    setTask("");
+    setPriority("");
+    setDescription("");
+  };
   return (
     <div>
-      <form className="row row-cols-lg-auto g-3 align-items-center">
+      <form
+        className="row row-cols-lg-auto g-3 align-items-center"
+        onSubmit={handleFormSubmit}
+      >
         <div className="col-12">
           <label
             className="visually-hidden"
@@ -18,6 +60,8 @@ export const AddToDoItem = () => {
               className="form-control"
               id="inlineFormInputGroupUsername"
               placeholder="Task name"
+              value={task}
+              onChange={handleTaskChange}
             />
           </div>
         </div>
@@ -26,7 +70,12 @@ export const AddToDoItem = () => {
           <label className="visually-hidden" htmlFor="inlineFormSelectPref">
             Preference
           </label>
-          <select className="form-select" id="inlineFormSelectPref">
+          <select
+            className="form-select"
+            id="inlineFormSelectPref"
+            value={priority}
+            onChange={handlePriorityChange}
+          >
             <option value="" disabled selected>
               Select Priority
             </option>
@@ -43,12 +92,14 @@ export const AddToDoItem = () => {
             Discription
           </label>
           <div className="input-group">
-            <div className="input-group-text">Discreption</div>
+            <div className="input-group-text">Discription</div>
             <input
               type="text"
               className="form-control"
               id="inlineFormInputGroupUsername"
               placeholder="description"
+              value={description}
+              onChange={handleDescriptionChange}
             />
           </div>
         </div>

@@ -1,35 +1,6 @@
 import React, { useState } from "react";
 
-export const TodoItem = () => {
-  const [toDoList, setToDoList] = useState([
-    {
-      sno: 1,
-      task: "DSA",
-      priority: 3,
-      description: "commplete linked list topic",
-    },
-    {
-      sno: 2,
-      task: "Java",
-      priority: 1,
-      description: "revise Exception Handling",
-    },
-    {
-      sno: 3,
-      task: "Spring",
-      priority: 2,
-      description: "Revise Properties Handling in Spring",
-    },
-    { sno: 4, task: "Gym", priority: 1, description: "Triceps Exercise" },
-    {
-      sno: 5,
-      task: "Microservices",
-      priority: 3,
-      description:
-        "Learn Messager broke concept for Async Communication between microservices",
-    },
-  ]);
-
+export const TodoItem = ({ onDone, toDoList }) => {
   const getPriorityColorClass = (priority) => {
     switch (priority) {
       case 1:
@@ -43,14 +14,8 @@ export const TodoItem = () => {
     }
   };
 
-  const onDone = (completedTodo) => {
-    console.log(
-      "completedTodo " + completedTodo.sno + " , " + completedTodo.description
-    );
-    const updatedToDoList = toDoList.filter(
-      (todo) => todo.sno !== completedTodo.sno
-    );
-    setToDoList(updatedToDoList);
+  const handleDoneClick = (completedTodo) => {
+    onDone(completedTodo);
   };
 
   return (
@@ -64,7 +29,7 @@ export const TodoItem = () => {
                 <p className="card-text">{todo.description}</p>
                 <button
                   className="btn btn-primary"
-                  onClick={() => onDone(todo)}
+                  onClick={() => handleDoneClick(todo)}
                 >
                   Done
                 </button>
