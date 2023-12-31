@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { TodoItem } from "./TodoItem";
 import { AddToDoItem } from "./AddToDoItem";
 
-const API_BASE_URL = "http://icr7.in/toDoApi";
+const API_BASE_URL = "https://icr7.in/toDoApi";
 
 export const Todos = () => {
   const [toDoList, setToDoList] = useState([]);
