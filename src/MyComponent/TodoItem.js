@@ -33,14 +33,24 @@ export const TodoItem = () => {
   const getPriorityColorClass = (priority) => {
     switch (priority) {
       case 1:
-        return { backgroundColor: "lightcoral" }; // Define light-red class in your CSS
+        return { backgroundColor: "lightcoral" };
       case 2:
-        return { backgroundColor: "lightgreen" }; // Define light-green class in your CSS
+        return { backgroundColor: "lightgreen" };
       case 3:
-        return { backgroundColor: "lightblue" }; // Define light-blue class in your CSS
+        return { backgroundColor: "lightblue" };
       default:
         return {};
     }
+  };
+
+  const onDone = (completedTodo) => {
+    console.log(
+      "completedTodo " + completedTodo.sno + " , " + completedTodo.description
+    );
+    const updatedToDoList = toDoList.filter(
+      (todo) => todo.sno !== completedTodo.sno
+    );
+    setToDoList(updatedToDoList);
   };
 
   return (
@@ -52,9 +62,12 @@ export const TodoItem = () => {
               <div className="card-body">
                 <h5 className="card-title">{todo.task}</h5>
                 <p className="card-text">{todo.description}</p>
-                <a href="#" className="btn btn-primary">
+                <button
+                  className="btn btn-primary"
+                  onClick={() => onDone(todo)}
+                >
                   Done
-                </a>
+                </button>
               </div>
             </div>
           </div>
