@@ -44,8 +44,7 @@ export const TodoItem = () => {
   };
 
   return (
-    <div className="container">
-      <h3>toDoList</h3>
+    <div className="container" style={{ margin: "40px" }}>
       <div className="row">
         {toDoList.map((todo) => (
           <div key={todo.sno} className="col-sm-4 mb-3 mb-sm-3">
