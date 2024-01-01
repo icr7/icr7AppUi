@@ -17,7 +17,7 @@ function App() {
     setIsAuthenticated(false);
   };
 
-  const handleSignIn = (jwt) => {
+  const handleToken = (jwt) => {
     localStorage.setItem("jwtToken", jwt);
     setIsAuthenticated(!!jwt);
   };
@@ -31,7 +31,7 @@ function App() {
           <Todos />
         </div>
       ) : (
-        <Auth onSignIn={handleSignIn} />
+        <Auth getToken={handleToken} />
       )}
     </div>
   );

@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
-export const Login = ({ onSignIn }) => {
+export const AuthForm = ({ onAuthFormSubmit, isSignUp }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
+  const handleAuthForm = (e) => {
     e.preventDefault();
     // Perform any client-side validation if needed
     if (email && password) {
-      // Call the onSignIn callback provided by the parent component
-      onSignIn(email, password);
+      // Call the onAuthFormSubmit callback provided by the parent component
+      onAuthFormSubmit(email, password);
     } else {
       // Handle validation error
       console.error("Please enter both email and password");
@@ -17,8 +17,8 @@ export const Login = ({ onSignIn }) => {
   };
   return (
     <div className="container" style={{ margin: "40px" }}>
-      <h1 className="display-2">Login</h1>
-      <form style={{ margin: "40px" }} onSubmit={handleLogin}>
+      <h1 className="display-2">{isSignUp ? "Sign Up" : "Login"}</h1>
+      <form style={{ margin: "40px" }} onSubmit={handleAuthForm}>
         <div className="row mb-3">
           <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">
             Email
@@ -46,7 +46,7 @@ export const Login = ({ onSignIn }) => {
           </div>
         </div>
         <button type="submit" className="btn btn-success">
-          Login
+          {isSignUp ? "Sign Up" : "Login"}
         </button>
       </form>
     </div>
