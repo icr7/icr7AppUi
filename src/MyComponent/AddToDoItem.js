@@ -76,9 +76,6 @@ export const AddToDoItem = ({ addTodo }) => {
             value={priority}
             onChange={handlePriorityChange}
           >
-            <option value="" disabled selected>
-              Select Priority
-            </option>
             <option value="1">High</option>
             <option value="2">Medium</option>
             <option value="3">Low</option>

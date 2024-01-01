@@ -9,7 +9,11 @@ export const Todos = () => {
 
   useEffect(() => {
     // Fetch data from the API
-    fetch(`${API_BASE_URL}/getToDos`)
+    fetch(`${API_BASE_URL}/getToDos`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log("api data -> ", data);
@@ -26,6 +30,9 @@ export const Todos = () => {
     );
     fetch(`${API_BASE_URL}/deleteToDoById/${completedTodo.sno}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+      },
     })
       .then((response) => {
         if (!response.ok) {
@@ -52,6 +59,7 @@ export const Todos = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
       },
       body: JSON.stringify(newTodo),
     })

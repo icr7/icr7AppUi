@@ -1,6 +1,13 @@
 import React from "react";
 
-export const Nav = () => {
+export const Nav = ({ onSignOut }) => {
+  const handleSignOut = () => {
+    // Call the provided onSignOut callback to handle sign-out
+    if (onSignOut) {
+      onSignOut();
+    }
+  };
+
   return (
     <div>
       <>
@@ -72,17 +79,12 @@ export const Nav = () => {
                   </a>
                 </li>
               </ul>
-              <form className="d-flex" role="search">
-                <input
-                  className="form-control me-2"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
-                <button className="btn btn-outline-success" type="submit">
-                  Search
-                </button>
-              </form>
+              <button
+                className="btn btn-outline-danger"
+                onClick={handleSignOut}
+              >
+                Sign Out
+              </button>
             </div>
           </div>
         </nav>
