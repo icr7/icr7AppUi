@@ -9,7 +9,7 @@ export const Todos = () => {
 
   useEffect(() => {
     // Fetch data from the API
-    fetch(`${API_BASE_URL}/getToDos`, {
+    fetch(`${API_BASE_URL}/getUserToDos`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
       },
