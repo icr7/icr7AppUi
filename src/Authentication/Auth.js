@@ -19,6 +19,7 @@ export const Auth = ({ onSignIn }) => {
       .then((response) => {
         if (!response.ok) {
           console.error("Authentication failed:", response.statusText);
+          window.alert("Authentication failed. Please check your credentials.");
           return null; // Set jwt to null if the response is not okay
         }
         return response.text();
