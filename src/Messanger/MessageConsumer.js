@@ -9,7 +9,7 @@ export const MessageConsumer = () => {
   const [publishMessage, setPublishMessage] = useState("");
   const from = localStorage.getItem("userName");
   useEffect(() => {
-    const socket = new SockJS("http://icr7.in/web-socket");
+    const socket = new SockJS("https://icr7.in/web-socket");
     const stompClient = Stomp.over(socket);
 
     stompClient.connect({}, function (frame) {
