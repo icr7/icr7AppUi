@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Nav } from "./MyComponent/Nav";
 import { Todos } from "./MyComponent/Todos";
 import { Auth } from "./Authentication/Auth";
+import { MessageConsumer } from "./Messanger/MessageConsumer";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -46,6 +47,7 @@ function App() {
         <div>
           <Nav navUserName={username} onSignOut={handleSignOut} />
           <Todos />
+          <MessageConsumer />
         </div>
       ) : (
         <Auth getUserName={handleUserName} getToken={handleToken} />
