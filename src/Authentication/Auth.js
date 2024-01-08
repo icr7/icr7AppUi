@@ -3,7 +3,7 @@ import { AuthForm } from "./AuthForm";
 
 const AUTH_BASE_URL = "https://icr7.in/auth";
 
-export const Auth = ({ getToken }) => {
+export const Auth = ({ getUserName, getToken }) => {
   const [isSignUp, setIsSignUp] = useState(false);
 
   const handleAuthForm = (email, password) => {
@@ -12,7 +12,9 @@ export const Auth = ({ getToken }) => {
       password: password,
       role: "user",
     };
-
+    const parts = email.split("@");
+    const username = parts[0];
+    getUserName(username);
     fetch(`${AUTH_BASE_URL}/${isSignUp ? "signUp" : "login"}`, {
       method: "POST",
       headers: {

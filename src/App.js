@@ -6,15 +6,27 @@ import { Auth } from "./Authentication/Auth";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [username, setUserName] = useState("");
 
   useEffect(() => {
     // Check for JWT token during initial render
     setIsAuthenticated(!!localStorage.getItem("jwtToken"));
+    setUserName(localStorage.getItem("userName"));
   }, []);
 
   const handleSignOut = () => {
     localStorage.removeItem("jwtToken");
     setIsAuthenticated(false);
+  };
+
+  const handleUserName = (username) => {
+    if (username) {
+      console.log("username set ho gya");
+      localStorage.setItem("userName", username);
+    } else {
+      localStorage.removeItem("userName");
+    }
+    setUserName(username);
   };
 
   const handleToken = (jwt) => {
@@ -32,11 +44,11 @@ function App() {
       {/* Conditional rendering based on isAuthenticated */}
       {isAuthenticated ? (
         <div>
-          <Nav onSignOut={handleSignOut} />
+          <Nav navUserName={username} onSignOut={handleSignOut} />
           <Todos />
         </div>
       ) : (
-        <Auth getToken={handleToken} />
+        <Auth getUserName={handleUserName} getToken={handleToken} />
       )}
     </div>
   );

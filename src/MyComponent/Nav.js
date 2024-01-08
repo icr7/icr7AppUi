@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Nav = ({ onSignOut }) => {
+export const Nav = ({ navUserName, onSignOut }) => {
   const handleSignOut = () => {
     // Call the provided onSignOut callback to handle sign-out
     if (onSignOut) {
@@ -14,7 +14,7 @@ export const Nav = ({ onSignOut }) => {
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
           <div className="container-fluid">
             <a className="navbar-brand" href="#">
-              Navbar
+              {navUserName}
             </a>
             <button
               className="navbar-toggler"
