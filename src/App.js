@@ -18,7 +18,12 @@ function App() {
   };
 
   const handleToken = (jwt) => {
-    localStorage.setItem("jwtToken", jwt);
+    if (jwt) {
+      console.log("jwt set ho gyi");
+      localStorage.setItem("jwtToken", jwt);
+    } else {
+      localStorage.removeItem("jwtToken");
+    }
     setIsAuthenticated(!!jwt);
   };
 
