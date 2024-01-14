@@ -7,6 +7,7 @@ import { MessageConsumer } from "./Messanger/MessageConsumer";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [reloadData, setReloadData] = useState(false);
   const [username, setUserName] = useState("");
   const [myToDos, setMyToDos] = useState([]);
   const API_BASE_URL = "https://icr7.in/toDoApi";
@@ -37,7 +38,7 @@ function App() {
           console.error("Error fetching data:", error);
         });
     }
-  }, []);
+  }, [reloadData]);
 
   const handleSignOut = () => {
     localStorage.removeItem("jwtToken");
@@ -56,6 +57,7 @@ function App() {
   const handleToken = (jwt) => {
     if (jwt) {
       localStorage.setItem("jwtToken", jwt);
+      setReloadData((prevReloadData) => !prevReloadData); // Toggle the value
     } else {
       localStorage.removeItem("jwtToken");
     }
