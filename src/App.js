@@ -10,10 +10,11 @@ function App() {
   const [reloadData, setReloadData] = useState(false);
   const [username, setUserName] = useState("");
   const [myToDos, setMyToDos] = useState([]);
-  const API_BASE_URL = "https://icr7.in/toDoApi";
+  const [myChatHistory, setMyChatHistory] = useState([]);
+  const API_BASE_URL = "https://icr7.in";
   useEffect(() => {
     if (localStorage.getItem("jwtToken")) {
-      fetch(`${API_BASE_URL}/getUserToDos`, {
+      fetch(`${API_BASE_URL}/toDoApi/getUserToDos`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
         },
@@ -36,6 +37,16 @@ function App() {
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
+        });
+
+      fetch(`${API_BASE_URL}/chat/history`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setMyChatHistory(data);
         });
     }
   }, [reloadData]);
@@ -71,7 +82,10 @@ function App() {
         <div>
           <Nav navUserName={username} onSignOut={handleSignOut} />
           <Todos myToDos={myToDos} setMyToDos={setMyToDos} />
-          <MessageConsumer />
+          <MessageConsumer
+            myChatHistory={myChatHistory}
+            setMyChatHistory={setMyChatHistory}
+          />
         </div>
       ) : (
         <Auth getUserName={handleUserName} getToken={handleToken} />

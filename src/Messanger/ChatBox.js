@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const ChatBox = ({ receivedMessage, publishMessage }) => {
+export const ChatBox = ({ myChatHistory, publishMessage }) => {
   const [inputMessage, setInputMessage] = useState("");
   const [receiver, setReceiver] = useState("");
 
@@ -29,8 +29,25 @@ export const ChatBox = ({ receivedMessage, publishMessage }) => {
   return (
     <div className="container">
       <div className="card">
-        <div className="card-header">Latest Message</div>
-        <div className="card-body">{receivedMessage}</div>
+        <div className="card-header">Chats</div>
+        <div className="card-body">
+          <ul className="list-group mt-3">
+            {myChatHistory.map((message) => (
+              <li
+                key={message.messageId}
+                className="list-group-item d-flex justify-content-between align-items-center"
+              >
+                <span>
+                  <strong>From:</strong> {message.from}
+                </span>
+                <span>
+                  <strong>To:</strong> {message.to}
+                </span>
+                <span>{message.content}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       <form onSubmit={handleMessageSend} className="mt-3">

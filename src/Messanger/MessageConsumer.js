@@ -3,10 +3,8 @@ import { ChatBox } from "./ChatBox";
 import Stomp from "stompjs";
 import SockJS from "sockjs-client";
 
-export const MessageConsumer = () => {
-  const [receivedMessage, setReceivedMessage] = useState("");
+export const MessageConsumer = ({ myChatHistory, setMyChatHistory }) => {
   const [stompClient, setStompClient] = useState(null);
-  const [publishMessage, setPublishMessage] = useState("");
   const from = localStorage.getItem("userName");
   useEffect(() => {
     const socket = new SockJS("https://icr7.in/web-socket");
@@ -15,7 +13,21 @@ export const MessageConsumer = () => {
     stompClient.connect({}, function (frame) {
       setStompClient(stompClient);
       stompClient.subscribe("/topic/" + from + "/messages", function (message) {
-        setReceivedMessage(message.body);
+        console.log("messege aya : ", message.body);
+        const receivedMessage = JSON.parse(message.body);
+
+        // Check if the received message is not already in the chat history
+        if (
+          !myChatHistory.some(
+            (msg) => msg.messageId === receivedMessage.messageId
+          )
+        ) {
+          console.log("Message received: ", receivedMessage);
+          setMyChatHistory((prevChatHistory) => [
+            ...prevChatHistory,
+            receivedMessage,
+          ]);
+        }
       });
     });
 
@@ -25,8 +37,6 @@ export const MessageConsumer = () => {
   }, []);
 
   const handlePublishMessage = (message, receiver) => {
-    setPublishMessage(message);
-
     if (stompClient) {
       try {
         const messageObject = {
@@ -35,7 +45,7 @@ export const MessageConsumer = () => {
           from: from,
         };
         stompClient.send("/app/publish", {}, JSON.stringify(messageObject));
-        setPublishMessage("");
+        setMyChatHistory([...myChatHistory, messageObject]);
       } catch (error) {
         console.error("Error sending message:", error);
       }
@@ -43,7 +53,7 @@ export const MessageConsumer = () => {
   };
   return (
     <ChatBox
-      receivedMessage={receivedMessage}
+      myChatHistory={myChatHistory}
       publishMessage={handlePublishMessage}
     />
   );

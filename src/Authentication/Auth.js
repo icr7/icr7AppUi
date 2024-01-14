@@ -12,9 +12,8 @@ export const Auth = ({ getUserName, getToken }) => {
       password: password,
       role: "user",
     };
-    const parts = email.split("@");
-    const username = parts[0];
-    getUserName(username);
+
+    getUserName(email);
     fetch(`${AUTH_BASE_URL}/${isSignUp ? "signUp" : "login"}`, {
       method: "POST",
       headers: {

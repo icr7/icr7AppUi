@@ -14,7 +14,7 @@ export const Nav = ({ navUserName, onSignOut }) => {
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
           <div className="container-fluid">
             <a className="navbar-brand" href="#">
-              {navUserName}
+              {navUserName.split("@")[0]}
             </a>
             <button
               className="navbar-toggler"
