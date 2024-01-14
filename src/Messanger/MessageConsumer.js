@@ -13,11 +13,8 @@ export const MessageConsumer = () => {
     const stompClient = Stomp.over(socket);
 
     stompClient.connect({}, function (frame) {
-      console.log("Connected: " + frame);
       setStompClient(stompClient);
       stompClient.subscribe("/topic/" + from + "/messages", function (message) {
-        console.log("message: ", message);
-        console.log("message body: ", message.body);
         setReceivedMessage(message.body);
       });
     });
@@ -28,7 +25,6 @@ export const MessageConsumer = () => {
   }, []);
 
   const handlePublishMessage = (message, receiver) => {
-    console.log("my message is: ", message);
     setPublishMessage(message);
 
     if (stompClient) {

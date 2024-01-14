@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const TodoItem = ({ onDone, toDoList }) => {
+export const TodoItem = ({ onDone, myToDos }) => {
   const getPriorityColorClass = (priority) => {
     switch (priority) {
       case 1:
@@ -17,11 +17,10 @@ export const TodoItem = ({ onDone, toDoList }) => {
   const handleDoneClick = (completedTodo) => {
     onDone(completedTodo);
   };
-
   return (
     <div className="container" style={{ margin: "40px" }}>
       <div className="row">
-        {toDoList.map((todo) => (
+        {myToDos.map((todo) => (
           <div key={todo.sno} className="col-sm-4 mb-3 mb-sm-3">
             <div className="card" style={getPriorityColorClass(todo.priority)}>
               <div className="card-body">

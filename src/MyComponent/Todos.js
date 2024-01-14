@@ -4,30 +4,8 @@ import { AddToDoItem } from "./AddToDoItem";
 
 const API_BASE_URL = "https://icr7.in/toDoApi";
 
-export const Todos = () => {
-  const [toDoList, setToDoList] = useState([]);
-
-  useEffect(() => {
-    // Fetch data from the API
-    fetch(`${API_BASE_URL}/getUserToDos`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("api data -> ", data);
-        setToDoList(data); // Update the state with the fetched data
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []); // The empty dependency array ensures that this effect runs only once, similar to componentDidMount
-
+export const Todos = ({ myToDos, setMyToDos }) => {
   const onDone = (completedTodo) => {
-    console.log(
-      "completedTodo " + completedTodo.sno + " , " + completedTodo.description
-    );
     fetch(`${API_BASE_URL}/deleteToDoById/${completedTodo.sno}`, {
       method: "DELETE",
       headers: {
@@ -42,10 +20,10 @@ export const Todos = () => {
       })
       .then(() => {
         // Update the state after successful deletion
-        const updatedToDoList = toDoList.filter(
+        const updatedToDoList = myToDos.filter(
           (todo) => todo.sno !== completedTodo.sno
         );
-        setToDoList(updatedToDoList);
+        setMyToDos(updatedToDoList);
       })
       .catch((error) => {
         console.error("Error deleting Todo:", error);
@@ -53,7 +31,7 @@ export const Todos = () => {
   };
 
   const addTodo = (newTodo) => {
-    newTodo.sno = toDoList.length + 1;
+    newTodo.sno = myToDos.length + 1;
 
     fetch(`${API_BASE_URL}/saveToDo`, {
       method: "POST",
@@ -71,7 +49,7 @@ export const Todos = () => {
       })
       .then(() => {
         // Update the state after successful save
-        setToDoList([...toDoList, newTodo]);
+        setMyToDos([...myToDos, newTodo]);
       })
       .catch((error) => {
         console.error("Error saving Todo:", error);
@@ -82,7 +60,7 @@ export const Todos = () => {
     <div>
       <h3>Todos</h3>
       <AddToDoItem addTodo={addTodo} />
-      <TodoItem onDone={onDone} toDoList={toDoList} />
+      <TodoItem onDone={onDone} myToDos={myToDos} />
     </div>
   );
 };

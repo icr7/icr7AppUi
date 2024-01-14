@@ -31,7 +31,6 @@ export const Auth = ({ getUserName, getToken }) => {
         return response.text();
       })
       .then((jwt) => {
-        console.log("auth jwt token -> ", jwt);
         getToken(jwt);
       })
       .catch((error) => {
