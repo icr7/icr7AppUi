@@ -90,7 +90,7 @@ export const MessageConsumer = ({ myChatHistory, setMyChatHistory }) => {
             </label>
             <div className="flex items-center bg-white rounded-md overflow-hidden">
               <div className="bg-gray-200 text-gray-800 p-3 rounded-l-md">
-                Add User
+                Add Contact
               </div>
               <input
                 type="text"
