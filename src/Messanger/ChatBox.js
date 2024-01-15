@@ -21,7 +21,7 @@ export const ChatBox = ({ myChatHistory, publishMessage, selectedUser }) => {
           <div
             key={message.messageId}
             className={`flex mb-3 ${
-              message.from === selectedUser ? "justify-end" : "justify-start"
+              message.from === selectedUser ? "justify-start" : "justify-end"
             }`}
           >
             <div
