@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ChatBox } from "./ChatBox";
 import Stomp from "stompjs";
 import SockJS from "sockjs-client";
+import { ChatSender } from "./ChatSender";
 
 export const MessageConsumer = ({ myChatHistory, setMyChatHistory }) => {
   const [stompClient, setStompClient] = useState(null);
@@ -52,7 +53,7 @@ export const MessageConsumer = ({ myChatHistory, setMyChatHistory }) => {
     }
   };
   return (
-    <ChatBox
+    <ChatSender
       myChatHistory={myChatHistory}
       publishMessage={handlePublishMessage}
     />
