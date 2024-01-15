@@ -11,8 +11,13 @@ export const ChatSender = ({ myChatHistory, publishMessage }) => {
     setSelectedUser(user);
   };
 
-  // Create a map to group myChatHistory by sender's email
-  const groupedMessages = myChatHistory.reduce((acc, message) => {
+  // Filter out the messages from the current user
+  const otherUserMessages = myChatHistory.filter(
+    (message) => message.from !== localStorage.getItem("userName")
+  );
+
+  // Create a map to group messages by sender's email
+  const groupedMessages = otherUserMessages.reduce((acc, message) => {
     const key = message.from;
     if (!acc[key] || message.messageId > acc[key].messageId) {
       acc[key] = message;
@@ -20,7 +25,7 @@ export const ChatSender = ({ myChatHistory, publishMessage }) => {
     return acc;
   }, {});
 
-  // Convert the grouped myChatHistory map to an array and sort by messageId in descending order
+  // Convert the grouped messages map to an array and sort by messageId in descending order
   const latestMessages = Object.values(groupedMessages).sort(
     (a, b) => b.messageId - a.messageId
   );
