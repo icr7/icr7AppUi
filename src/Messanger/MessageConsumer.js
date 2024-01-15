@@ -20,8 +20,8 @@ export const MessageConsumer = ({ myChatHistory, setMyChatHistory }) => {
       return;
     } else {
       const messageObject = {
-        messageId: 999999,
-        content: "",
+        messageId: myChatHistory[myChatHistory.length - 1].messageId + 1,
+        content: `icr7: ${newEmail} added to your contact, Happy chatting `,
         to: from,
         from: newEmail,
       };
@@ -30,7 +30,6 @@ export const MessageConsumer = ({ myChatHistory, setMyChatHistory }) => {
         ...prevChatHistory,
         messageObject,
       ]);
-      console.log("added : ", messageObject);
       setNewEmail("");
     }
   };
@@ -42,7 +41,6 @@ export const MessageConsumer = ({ myChatHistory, setMyChatHistory }) => {
     stompClient.connect({}, function (frame) {
       setStompClient(stompClient);
       stompClient.subscribe("/topic/" + from + "/messages", function (message) {
-        console.log("messege aya : ", message.body);
         const receivedMessage = JSON.parse(message.body);
 
         // Check if the received message is not already in the chat history
@@ -51,7 +49,6 @@ export const MessageConsumer = ({ myChatHistory, setMyChatHistory }) => {
             (msg) => msg.messageId === receivedMessage.messageId
           )
         ) {
-          console.log("Message received: ", receivedMessage);
           setMyChatHistory((prevChatHistory) => [
             ...prevChatHistory,
             receivedMessage,
@@ -83,7 +80,10 @@ export const MessageConsumer = ({ myChatHistory, setMyChatHistory }) => {
   return (
     <>
       <div className="m-4 mb-8">
-        <form className="flex flex-col lg:flex-row items-start lg:items-center bg-gray-100 p-4 rounded-md shadow-md">
+        <form
+          className="flex flex-col lg:flex-row items-start lg:items-center bg-gray-100 p-4 rounded-md shadow-md"
+          onSubmit={handleFormSubmit}
+        >
           <div className="flex-1 lg:w-2/3 lg:mr-3">
             <label className="sr-only" htmlFor="inlineFormInputGroupUsername">
               User Email
