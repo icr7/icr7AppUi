@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 export const ChatBox = ({ myChatHistory, publishMessage, selectedUser }) => {
   const [newMessage, setNewMessage] = useState("");
+  const chatContainerRef = useRef(null);
 
   const userMessages = myChatHistory.filter(
     (message) => message.from === selectedUser || message.to === selectedUser
@@ -14,9 +15,19 @@ export const ChatBox = ({ myChatHistory, publishMessage, selectedUser }) => {
     }
   };
 
+  useEffect(() => {
+    // Scroll to the bottom of the chat window after each update
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  }, [userMessages]);
+
+  useEffect(() => {
+    // Scroll to the bottom when the component initially mounts
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  }, []); // Empty dependency array means this effect runs only once after mount
+
   return (
     <div className="flex-1 flex flex-col bg-gray-100 p-4">
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto" ref={chatContainerRef}>
         {userMessages.map((message) => (
           <div
             key={message.messageId}
