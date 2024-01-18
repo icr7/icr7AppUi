@@ -7,7 +7,7 @@ export const MessageConsumer = ({ myChatHistory, setMyChatHistory }) => {
   const [newEmail, setNewEmail] = useState("");
   const [stompClient, setStompClient] = useState(null);
   const from = localStorage.getItem("userName");
-  const messageId = 1;
+  let messageId = 1;
 
   const handleNewEmailChange = (e) => {
     setNewEmail(e.target.value);
@@ -20,7 +20,7 @@ export const MessageConsumer = ({ myChatHistory, setMyChatHistory }) => {
       alert("Please enter email");
       return;
     } else {
-      if (!myChatHistory === undefined) {
+      if (!(myChatHistory === undefined)) {
         messageId = myChatHistory[myChatHistory.length - 1].messageId + 1;
       }
       const messageObject = {
@@ -35,6 +35,7 @@ export const MessageConsumer = ({ myChatHistory, setMyChatHistory }) => {
         messageObject,
       ]);
       setNewEmail("");
+      console.log("messageid:" + messageObject.messageId);
     }
   };
 
