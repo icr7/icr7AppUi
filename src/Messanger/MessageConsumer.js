@@ -20,7 +20,7 @@ export const MessageConsumer = ({ myChatHistory, setMyChatHistory }) => {
       alert("Please enter email");
       return;
     } else {
-      if (myChatHistory) {
+      if (!myChatHistory === undefined) {
         messageId = myChatHistory[myChatHistory.length - 1].messageId + 1;
       }
       const messageObject = {
