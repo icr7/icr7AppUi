@@ -20,9 +20,8 @@ export const MessageConsumer = ({ myChatHistory, setMyChatHistory }) => {
       alert("Please enter email");
       return;
     } else {
-      if (!(myChatHistory === undefined)) {
+      if (!(myChatHistory === undefined) && myChatHistory.length > 0)
         messageId = myChatHistory[myChatHistory.length - 1].messageId + 1;
-      }
       const messageObject = {
         messageId: messageId,
         content: `icr7: ${newEmail} added to your contact, Happy chatting `,
