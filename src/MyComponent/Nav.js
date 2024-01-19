@@ -14,8 +14,13 @@ export const Nav = ({ navUserName, onSignOut }) => {
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
           <div className="container-fluid">
             <a className="navbar-brand" href="#">
-              {navUserName.split("@")[0]}
+              <h4>{navUserName.split("@")[0]}</h4>
             </a>
+            <img
+              className="mx-auto h-20 w-auto"
+              src="./icr7_logo.png"
+              alt="icr7 logo"
+            />
             <button className="btn btn-outline-danger" onClick={handleSignOut}>
               Sign Out
             </button>
